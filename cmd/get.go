@@ -24,7 +24,7 @@ var getCmd = &cobra.Command{
 			gopherName = args[0]
 		}
 
-		URL := "https://github.com/scraly/gophers/blob/main/" + gopherName + ".png"
+		URL := "https://raw.githubusercontent.com/scraly/gophers/main/" + gopherName + ".png"
 
 		fmt.Println("Try to get '" + gopherName + "' Gopher...")
 

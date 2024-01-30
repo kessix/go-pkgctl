@@ -18,14 +18,19 @@ var getCmd = &cobra.Command{
 	Short: "This command will get the desired Gopher",
 	Long:  `This get command will call GitHub respository in order to return the desired Gopher.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		var gopherName = "dr-who.png"
+		var gopherName = "dr-who"
 
 		if len(args) >= 1 && args[0] != "" {
 			gopherName = args[0]
 		}
 
-		URL := "https://raw.githubusercontent.com/scraly/gophers/main/" + gopherName + ".png"
+		if len(args) >= 1 && args[1] != "" {
+			which := args[1]
+			fmt.Println(which)
+		}
 
+		URL := "https://raw.githubusercontent.com/scraly/gophers/main/" + gopherName + ".png"
+		fmt.Println(URL)
 		fmt.Println("Try to get '" + gopherName + "' Gopher...")
 
 		// Get the data
@@ -41,6 +46,14 @@ var getCmd = &cobra.Command{
 			if err != nil {
 				fmt.Println(err)
 			}
+
+			// Check if a file exists
+			if _, err := os.Stat("./dr-who.png"); err == nil {
+				fmt.Println("File " + gopherName + ".png exists!")
+			} else {
+				fmt.Println("File does not exists!")
+			}
+
 			defer out.Close()
 
 			// Writer the body to file

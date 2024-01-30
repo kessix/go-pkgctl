@@ -13,6 +13,31 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Moves file to directory
+func MoveFile(sourcePath, destPath string) error {
+	inputFile, err := os.Open(sourcePath)
+	if err != nil {
+		return fmt.Errorf("Couldn't open source file: %s", err)
+	}
+	outputFile, err := os.Create(destPath)
+	if err != nil {
+		inputFile.Close()
+		return fmt.Errorf("Couldn't open dest file: %s", err)
+	}
+	defer outputFile.Close()
+	_, err = io.Copy(outputFile, inputFile)
+	inputFile.Close()
+	if err != nil {
+		return fmt.Errorf("Writing to output file failed: %s", err)
+	}
+	// The copy was successful, so now delete the original file
+	err = os.Remove(sourcePath)
+	if err != nil {
+		return fmt.Errorf("Failed removing original file: %s", err)
+	}
+	return nil
+}
+
 // getCmd represents the get command
 var getCmd = &cobra.Command{
 	Use:   "get",
@@ -49,11 +74,20 @@ var getCmd = &cobra.Command{
 			}
 
 			// Check if a file exists
-			if _, err := os.Stat("./dr-who.png"); err == nil {
+			if _, err := os.Stat("./harry-gopher.png"); err == nil {
 				fmt.Println("File " + gopherName + ".png exists!")
 				if err := os.Mkdir("gopher", os.ModePerm); err != nil {
 					log.Fatal(err)
 				}
+
+				// Move .png file to directory
+				sourcePath := "./" + gopherName + ".png"
+				destPath := "./gopher"
+				// sourcePath := "./harry-gopher.png"
+				// destPath := "./gopher"
+				fmt.Println(sourcePath + " and " + destPath)
+				MoveFile(sourcePath, destPath)
+
 			} else {
 				fmt.Println("File does not exists!")
 			}

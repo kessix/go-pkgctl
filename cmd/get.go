@@ -6,6 +6,7 @@ package cmd
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 
@@ -50,6 +51,9 @@ var getCmd = &cobra.Command{
 			// Check if a file exists
 			if _, err := os.Stat("./dr-who.png"); err == nil {
 				fmt.Println("File " + gopherName + ".png exists!")
+				if err := os.Mkdir("gopher", os.ModePerm); err != nil {
+					log.Fatal(err)
+				}
 			} else {
 				fmt.Println("File does not exists!")
 			}

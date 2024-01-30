@@ -24,7 +24,7 @@ var getCmd = &cobra.Command{
 			gopherName = args[0]
 		}
 
-		if len(args) >= 1 && args[1] != "" {
+		if len(args) > 1 && args[1] != "" {
 			which := args[1]
 			fmt.Println(which)
 		}

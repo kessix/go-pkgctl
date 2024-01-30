@@ -11,9 +11,9 @@ import (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "go-pkgctl",
-	Short: "Formate directory packages in Go",
-	Long:  `Formate directory packages in Go`,
+	Use:   "pkgctl",
+	Short: "Gopher CLI in Go",
+	Long:  `Gopher CLI application written in Go.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },

@@ -1,11 +1,11 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -22,6 +22,14 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("check called")
+		// Check if a file exists
+		gopherName := ""
+		if _, err := os.Stat("./harry-gopher.png"); err == nil {
+			fmt.Println("File " + gopherName + ".png exists!")
+
+		} else {
+			fmt.Println("File does not exists!")
+		}
 	},
 }
 

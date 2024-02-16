@@ -19,6 +19,9 @@ Therefore, pkgctl ensure the valid package format for deploy.
 
 ### Examples 
 
+$ pkgctl check
+$ pkgctl format
+
 
 
 
